@@ -7,10 +7,23 @@
 let appelLeft, appelRight, appelBackground, appelMusic
 let playerX = 20
 let playerY
-let walkspeed = 5
+let walkspeed = 3.4
+let facing = 'right'
+function move(side) {
+  if (side == 'right') {
+    playerX += walkspeed
+  } else if (side == 'left') {
+    playerX -= walkspeed
+  }
+}
 
-function move() {
-  playerX += walkspeed
+function jump() {
+  for (let i = 0; i < 10; i++) {
+    playerY += 0.1
+  }
+  for (let i = 0; i < 10; i++) {
+    playerY -= 0.1
+  }
 }
 
 function preload() {
@@ -28,9 +41,20 @@ function setup() {
 
 function draw() {
   background(appelBackground);
-  image(appelRight, playerX, 386)
-  if (playerX > 800) {
-   playerX = 20
+  if (facing == 'right') {
+    image(appelRight, playerX, 386)
+  } else if (facing == 'left') {
+    image(appelLeft, playerX, 386)
   }
-  move()
+  if (keyIsPressed) {
+    if (key == 'd') {
+      facing = 'right'
+      move(facing)
+    } else if (key == 'a') {
+      facing = 'left'
+      move(facing)
+    }
+  }
 }
+
+
